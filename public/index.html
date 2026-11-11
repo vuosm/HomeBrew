@@ -27,9 +27,10 @@
         <h1 id="landing-title">Small molecules,<br>narrow targets.</h1>
         <p class="lede">Clear, plain-language profiles of targeted drugs most people have never heard of. What they bind, who they're for, and what to watch for.</p>
         <div class="actions">
-          <a href="#access" class="btn btn-primary" data-scroll>Get access</a>
-          <a href="#/library" class="btn btn-ghost glass">Preview the library</a>
+          <button type="button" id="buy" class="btn btn-primary">Get access<span id="price" class="btn-price"></span></button>
+          <a href="#/login" class="btn btn-ghost glass">I have a key</a>
         </div>
+        <p id="buy-error" class="form-error" role="alert" hidden></p>
       </div>
 
       <section id="access" class="access glass" aria-labelledby="access-title">
@@ -38,31 +39,66 @@
           <li class="step">
             <span class="step-n mono">1</span>
             <h3>Pay in crypto</h3>
-            <p>One payment, no account or email needed.</p>
+            <p>Checkout runs through NOWPayments. No account or email needed.</p>
           </li>
           <li class="step">
             <span class="step-n mono">2</span>
             <h3>Receive your key</h3>
-            <p>You get a personal access key right after payment confirms.</p>
+            <p>Your personal access key appears here as soon as the payment confirms.</p>
           </li>
           <li class="step">
             <span class="step-n mono">3</span>
             <h3>Unlock the library</h3>
-            <p>Enter your key to read every profile.</p>
+            <p>Enter your key on any device to read every profile.</p>
           </li>
         </ol>
-        <p class="access-note">Payments and key login are coming soon.</p>
       </section>
+    </section>
+
+    <!-- Key login -->
+    <section id="view-login" class="view narrow" hidden aria-labelledby="login-title">
+      <a href="#/" class="back glass">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Home
+      </a>
+      <form id="login-form" class="panel glass" novalidate>
+        <h1 id="login-title" class="panel-title">Enter your key</h1>
+        <p class="panel-text">Paste the access key you received after payment.</p>
+        <label class="field-label" for="key-input">Access key</label>
+        <input id="key-input" class="field mono" type="text" placeholder="NC-XXXX-XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false" required>
+        <p id="login-error" class="form-error" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary btn-block">Unlock library</button>
+        <p class="panel-foot">No key yet? <a href="#/" class="link">Get access</a></p>
+      </form>
+    </section>
+
+    <!-- After payment -->
+    <section id="view-claim" class="view narrow" hidden aria-labelledby="claim-title" aria-live="polite">
+      <div class="panel glass">
+        <div id="claim-wait">
+          <span class="spinner" aria-hidden="true"></span>
+          <h1 id="claim-title" class="panel-title">Waiting for your payment</h1>
+          <p id="claim-text" class="panel-text">Crypto payments can take a few minutes to confirm. Keep this page open and your key will appear here.</p>
+        </div>
+        <div id="claim-done" hidden>
+          <h1 class="panel-title">You're in</h1>
+          <p class="panel-text">This is your access key. Save it somewhere safe. It's the only way to log in, and it can't be recovered if you lose it.</p>
+          <div class="keybox">
+            <code id="claim-key" class="mono"></code>
+            <button type="button" id="copy-key" class="btn btn-ghost glass btn-sm">Copy</button>
+          </div>
+          <button type="button" id="claim-enter" class="btn btn-primary btn-block">Open the library</button>
+        </div>
+      </div>
     </section>
 
     <!-- Library view -->
     <section id="view-home" class="view" hidden aria-labelledby="home-title">
       <div class="hero">
-        <a href="#/" class="back glass">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-          Home
-        </a>
-        <p class="eyebrow">Library</p>
+        <div class="toolbar">
+          <span class="eyebrow">Library</span>
+          <button type="button" id="logout" class="btn btn-ghost glass btn-sm">Log out</button>
+        </div>
         <h1 id="home-title" class="library-title">All compounds</h1>
         <p class="lede">Tap a card to open its profile.</p>
         <label class="search glass" for="search">
@@ -82,7 +118,6 @@
     <p>For education only — not medical advice. Always defer to the official prescribing information and a qualified clinician.</p>
   </footer>
 
-  <script src="assets/compounds.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>

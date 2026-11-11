@@ -1,0 +1,17 @@
+{
+  "name": "niche-compounds",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Paid library of niche compound profiles. Access keys sold via NOWPayments.",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server/server.js",
+    "create-key": "node server/create-key.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

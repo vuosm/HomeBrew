@@ -10,7 +10,7 @@
  *   facts       Key/value pairs shown in the "At a glance" panel
  *   sections    [{ title, body }] — body is an array of paragraphs or a { list: [] } object
  */
-window.COMPOUNDS = [
+module.exports = [
   {
     id: "erdafitinib",
     name: "Erdafitinib",
