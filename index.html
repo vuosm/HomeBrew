@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0e10">
+  <meta name="description" content="Plain-language notes on niche, targeted compounds — what they hit, why they matter, and what to watch for.">
+  <title>Niche Compounds</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="grain"></span>
+  </div>
+
+  <header class="topbar glass">
+    <a href="#/" class="brand" aria-label="Niche Compounds home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2.5 20.2 7.25v9.5L12 21.5 3.8 16.75v-9.5Z"/>
+          <circle cx="12" cy="12" r="2.6"/>
+        </svg>
+      </span>
+      <span>Niche&nbsp;Compounds</span>
+    </a>
+    <span class="topbar-note">Educational notes</span>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <!-- Home view -->
+    <section id="view-home" class="view" aria-labelledby="home-title">
+      <div class="hero">
+        <p class="eyebrow">Index</p>
+        <h1 id="home-title">Small molecules,<br>narrow targets.</h1>
+        <p class="lede">Short, readable profiles of niche compounds — what they bind, who they're for, and what to watch for. Tap a card to open it.</p>
+        <label class="search glass" for="search">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+          <input id="search" type="search" placeholder="Search by name, target or indication" autocomplete="off" spellcheck="false">
+        </label>
+      </div>
+      <div id="grid" class="grid" role="list"></div>
+      <p id="empty" class="empty" hidden>No compounds match that search.</p>
+    </section>
+
+    <!-- Detail view -->
+    <article id="view-detail" class="view" hidden aria-live="polite"></article>
+  </main>
+
+  <footer class="footer">
+    <p>For education only — not medical advice. Always defer to the official prescribing information and a qualified clinician.</p>
+  </footer>
+
+  <script src="assets/compounds.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
