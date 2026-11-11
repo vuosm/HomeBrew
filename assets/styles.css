@@ -46,26 +46,31 @@ p { margin: 0; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
 #app:focus { outline: none; }
 
-/* ===== Backdrop: soft grey orbs, blurred ===== */
+/* ===== Backdrop ===== */
 .backdrop {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
-  background:
-    radial-gradient(120% 80% at 50% -10%, #1d2024 0%, transparent 60%),
-    linear-gradient(180deg, var(--bg-2), var(--bg));
+  background: var(--bg);
 }
-.orb {
+/* Background photo: blurred and graded down to a dark, cool grey */
+.bg-photo {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.55;
+  inset: -60px;                      /* overscan so blurred edges never show */
+  background: url("bg.jpg") 60% 35% / cover no-repeat;
+  filter: blur(14px) saturate(0.7) brightness(0.68) contrast(1.06);
+  transform: scale(1.06);
+  animation: breathe 30s ease-in-out infinite alternate;
   will-change: transform;
 }
-.orb-a { width: 46vmax; height: 46vmax; left: -12vmax; top: -10vmax; background: #3a3f46; animation: drift 26s ease-in-out infinite alternate; }
-.orb-b { width: 38vmax; height: 38vmax; right: -10vmax; top: 22vh; background: #2a2e34; animation: drift 32s ease-in-out infinite alternate-reverse; }
-.orb-c { width: 30vmax; height: 30vmax; left: 30vw; bottom: -14vmax; background: #4a4f57; opacity: 0.35; animation: drift 38s ease-in-out infinite alternate; }
+.bg-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(13, 14, 16, 0.05) 0%, rgba(13, 14, 16, 0.5) 75%),
+    linear-gradient(180deg, rgba(13, 14, 16, 0.15) 0%, rgba(13, 14, 16, 0.4) 55%, rgba(13, 14, 16, 0.85) 100%);
+}
 .grain {
   position: absolute;
   inset: 0;
@@ -73,9 +78,9 @@ p { margin: 0; }
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
-@keyframes drift {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to   { transform: translate3d(6vw, 4vh, 0) scale(1.12); }
+@keyframes breathe {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1.14) translate3d(-1vw, 1vh, 0); }
 }
 
 /* ===== Glass primitive ===== */
