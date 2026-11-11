@@ -7,6 +7,7 @@
   const empty = $("#empty");
   const search = $("#search");
   const home = $("#view-home");
+  const landing = $("#view-landing");
   const detail = $("#view-detail");
   const app = $("#app");
 
@@ -65,7 +66,7 @@
     const next = compounds[(idx + 1) % compounds.length];
 
     detail.innerHTML = `
-      <a href="#/" class="back glass">
+      <a href="#/library" class="back glass">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
         All compounds
       </a>
@@ -124,30 +125,46 @@
   /* ---------- Router ---------- */
   let lastHomeScroll = 0;
 
+  function show(view) {
+    [landing, home, detail].forEach((v) => (v.hidden = v !== view));
+  }
+
   function route() {
     const id = decodeURIComponent(location.hash.replace(/^#\/?/, "")).toLowerCase();
+    if (id === "access") return; // in-page anchor on the front page
     const c = id && compounds.find((x) => x.id === id);
 
     if (c) {
       if (!home.hidden) lastHomeScroll = window.scrollY;
       renderDetail(c);
-      home.hidden = true;
-      detail.hidden = false;
+      show(detail);
       document.title = `${c.name} · Niche Compounds`;
       window.scrollTo(0, 0);
       app.focus({ preventScroll: true });
+    } else if (id === "library") {
+      const fromDetail = !detail.hidden;
+      show(home);
+      document.title = "Library · Niche Compounds";
+      window.scrollTo(0, fromDetail ? lastHomeScroll : 0);
     } else {
-      detail.hidden = true;
-      home.hidden = false;
+      show(landing);
       document.title = "Niche Compounds";
-      window.scrollTo(0, lastHomeScroll);
+      window.scrollTo(0, 0);
     }
   }
 
   search.addEventListener("input", (e) => renderGrid(e.target.value));
   window.addEventListener("hashchange", route);
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !detail.hidden) location.hash = "#/";
+    if (e.key === "Escape" && !detail.hidden) location.hash = "#/library";
+  });
+
+  // "Get access" scrolls to the steps without changing the route
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("[data-scroll]");
+    if (!a) return;
+    e.preventDefault();
+    document.getElementById("access").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   renderGrid("");
